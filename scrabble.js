@@ -70,12 +70,80 @@ var Scrabble = function() {
   };
 };
 
-// YOUR CODE HERE
-// Scrabble.prototype.helloWorld = function() {
-//   return 'hello world!';
-// };
+var Player = function(name){
+  Scrabble.call(this);
+  this.name = name;
+  this.plays = [];
+
+  this.play = function(word){
+    if (this.hasWon() == false){
+    this.plays.push(word);
+    }else{
+    console.log("You've already won!");
+  }
+  };
+
+  this.totalScore = function(){
+    var forced_this = this;
+    var player_score = 0;
+    this.plays.forEach(function(word){
+      player_score += forced_this.scoreWord(word);
+    });
+    return player_score;
+  };
+
+  this.hasWon = function(){
+    var this_score = this.totalScore();
+    var hasWon = false;
+    if(this_score > 100){
+      return hasWon = true;
+    }
+    return hasWon;
+    ///test this, and call it from play(word)
+  };
+
+  this.highestScoringWord = function(){
+    return this.highestScoreFrom(this.plays);
+  };
+
+  this.highestWordScore = function(){
+    var players_highest_score = this.highestScoringWord();
+    return this.scoreWord(players_highest_score);
+  };
+
+};
+
+
+
 
 //Manual Tests
+
+tst3 = new Player("Olivia");
+console.log(tst3.name);
+tst3.play("chalk");
+tst3.play("monk");
+tst3.play("turkey");
+tst3.play("quiz");
+
+
+console.log(tst3.plays);
+console.log(tst3.hasWon());
+tst3.play("chalk");
+tst3.play("monk");
+tst3.play("turkey");
+tst3.play("quiz");
+console.log(tst3.hasWon());
+tst3.play("chalk");
+console.log(tst3.highestScoringWord());
+console.log(tst3.highestWordScore());
+
+
+// console.log(tst3.scoreWord("dog"));
+// console.log(tst3.totalScore());//chalk, monk, turkey
+
+
+
+//SCRABBLE Module
 // tst1 = new Scrabble();
 // tst1.scoreWord("A");
 // tst1.scoreWord("patagonia");
@@ -89,9 +157,9 @@ var Scrabble = function() {
 // console.log(tst2.highestScoreFrom(tiedWordsSameLength));
 // console.log(tst2.highestScoreFrom(tiedWordsDifferentLength));
 
-
-
-
-
+// YOUR CODE HERE
+// Scrabble.prototype.helloWorld = function() {
+//   return 'hello world!';
+// };
 
 module.exports = Scrabble;
